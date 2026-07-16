@@ -418,6 +418,8 @@ struct gpt_params {
     bool grouped_expert_routing = false; // if to use grouped expert routing (BailingMoeV2 arch)
     bool rope_cache        = false; // if to use RoPE cache (for supported models)
     bool graph_reuse       = true;  // if to reuse compute graphs
+    bool dsa               = false; // enable GLM DSA sparse attention (off by default; opt-in via --dsa)
+    int  dsa_top_k         = -1;    // DSA top-k override (<0 => use the model's configured indexer_top_k)
     int  min_experts       = -1;
     float thresh_experts   = 0;
 
@@ -451,6 +453,7 @@ struct gpt_params {
 
     std::string cache_type_k = "f16"; // KV cache data type for the K
     std::string cache_type_v = "f16"; // KV cache data type for the V
+    std::string indexer_cache_type_k = "f16"; // indexer K-cache data type
 
     std::string reduce_type = "f16";
     std::string graph_attn_precision = "f16";
